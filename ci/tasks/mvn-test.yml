@@ -6,7 +6,7 @@ image_resource:
   source:
     repository: jamesdbloom/docker-java8-maven
     tag: "latest"
-	
+
 input:
 - name: git-assets
 
