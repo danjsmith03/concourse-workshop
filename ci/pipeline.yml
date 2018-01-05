@@ -1,0 +1,21 @@
+resources:
+- name: git-assets
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/danjsmith03/concourse-workshop
+jobs:
+- name: unit-test
+  plan:
+  - get: git-assets
+    trigger: true
+  - task: mvn-test
+    file: git-assets/ci/tasks/mvn-test.yml
+- name: deploy
+  plan:
+  - get: git-assets
+    trigger: true
+    passed:
+      - unit-test
+  - task: mvn-package
+    file: git-assets/ci/tasks/mvn-package.yml
